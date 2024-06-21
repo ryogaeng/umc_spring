@@ -4,7 +4,6 @@ package umc.week9.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.week9.domain.common.BaseEntity;
-import umc.week9.domain.enums.mapping.MemberPrefer;
 
 import java.util.ArrayList;
 import java.util.List;

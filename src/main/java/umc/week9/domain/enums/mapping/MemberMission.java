@@ -10,6 +10,7 @@ import umc.week9.domain.enums.MissionStatus;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -29,4 +30,13 @@ public class MemberMission extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
+
+    public static MemberMission create(Member member, Mission mission, MissionStatus status) {
+        MemberMission memberMission = new MemberMission();
+        memberMission.member = member;
+        memberMission.mission = mission;
+        memberMission.status = status;
+        return memberMission;
+    }
 }
+
