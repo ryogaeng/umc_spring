@@ -16,7 +16,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<ReviewResponseDTO> addReview(@RequestBody @Validated ReviewRequestDTO requestDTO) {
         ReviewResponseDTO responseDTO = reviewService.addReview(requestDTO);
         return ResponseEntity.ok(responseDTO);
