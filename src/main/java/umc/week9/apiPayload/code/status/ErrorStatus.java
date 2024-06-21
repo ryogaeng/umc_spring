@@ -16,14 +16,15 @@ public enum ErrorStatus implements BaseErrorCode {
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
-
-    // 멤버 관려 에러
+    // 멤버 관련 에러
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "닉네임은 필수 입니다."),
 
-    // 예시,,,
-    ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다.");
+    // 예시,,
+    ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다."),
 
+    // Food Category 관련 에러 추가
+    FOOD_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "FOOD_CATEGORY4001", "해당하는 카테고리가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
@@ -45,7 +46,30 @@ public enum ErrorStatus implements BaseErrorCode {
                 .code(code)
                 .isSuccess(false)
                 .httpStatus(httpStatus)
-                .build()
-                ;
+                .build();
     }
 }
+
+
+//public enum ErrorStatus {
+//    COMMON400("COMMON400", "잘못된 요청입니다."),
+//    FOOD_CATEGORY_NOT_FOUND("FOOD_CATEGORY_NOT_FOUND", "해당하는 카테고리가 존재하지 않습니다.");
+//
+//    private final String code;
+//    private final String message;
+//
+//    ErrorStatus(String code, String message) {
+//        this.code = code;
+//        this.message = message;
+//    }
+//
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//}
+
+

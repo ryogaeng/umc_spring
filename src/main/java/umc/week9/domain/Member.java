@@ -3,6 +3,9 @@ package umc.week9.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.week9.domain.common.BaseEntity;
 import umc.week9.domain.enums.Gender;
 import umc.week9.domain.enums.MemberStatus;
@@ -17,6 +20,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -48,9 +53,12 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-   // @Column(nullable = false, length = 50)
+    private Integer age;
+
+    //    @Column(nullable = false, length = 50)
     private String email;
 
+    @ColumnDefault("0")
     private Integer point;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
