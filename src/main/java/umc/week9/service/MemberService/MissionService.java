@@ -8,5 +8,7 @@ import umc.week9.web.dto.MissionResponseDTO;
 public interface MissionService {
     MissionResponseDTO addMission(MissionRequestDTO requestDTO);
     Page<Mission> getMissionList(Long storeId, int page);
+    Page<Mission> getChallengingMissions(Long memberId, int page);
+
 
 }

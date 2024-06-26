@@ -6,8 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.week9.converter.MissionConverter;
+import umc.week9.domain.Member;
 import umc.week9.domain.Mission;
 import umc.week9.domain.Store;
+import umc.week9.domain.enums.MissionStatus;
+import umc.week9.repository.MemberRepository;
 import umc.week9.repository.MissionRepository;
 import umc.week9.repository.StoreRepository;
 import umc.week9.web.dto.MissionRequestDTO;
@@ -19,6 +22,7 @@ import umc.week9.web.dto.MissionResponseDTO;
 public class MissionServiceImpl implements MissionService {
 
     private final MissionRepository missionRepository;
+    private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
 
     @Override
@@ -38,5 +42,12 @@ public class MissionServiceImpl implements MissionService {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("Store not found"));
         return missionRepository.findAllByStore(store, PageRequest.of(page, 10));
+    }
+
+    @Override
+    public Page<Mission> getChallengingMissions(Long memberId, int page) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
+        return missionRepository.findAllByMemberAndStatus(member, MissionStatus.CHALLENGING, PageRequest.of(page, 10));
     }
 }

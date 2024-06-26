@@ -65,7 +65,6 @@ public class MissionConverter {
                 .collect(Collectors.toList());
 
         return MissionResponseDTO.MissionListDTO.builder()
-                .missionList(missionDTOList)
                 .isLast(missionPage.isLast())
                 .isFirst(missionPage.isFirst())
                 .totalPage(missionPage.getTotalPages())
