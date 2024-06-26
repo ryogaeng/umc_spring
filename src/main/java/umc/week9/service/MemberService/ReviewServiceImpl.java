@@ -1,6 +1,8 @@
 package umc.week9.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.week9.converter.ReviewConverter;
@@ -37,6 +39,13 @@ public class ReviewServiceImpl implements ReviewService {
         Review savedReview = reviewRepository.save(review);
 
         return ReviewConverter.toReviewResponseDTO(savedReview);
+    }
+
+    @Override
+    public Page<Review> getMyReviews(Long memberId, int page) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
+        return reviewRepository.findAllByMember(member, PageRequest.of(page, 10));
     }
 }
 
