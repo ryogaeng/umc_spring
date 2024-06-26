@@ -1,6 +1,8 @@
 package umc.week9.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.week9.converter.MissionConverter;
@@ -29,5 +31,12 @@ public class MissionServiceImpl implements MissionService {
         Mission savedMission = missionRepository.save(mission);
 
         return MissionConverter.toMissionResponseDTO(savedMission);
+    }
+
+    @Override
+    public Page<Mission> getMissionList(Long storeId, int page) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("Store not found"));
+        return missionRepository.findAllByStore(store, PageRequest.of(page, 10));
     }
 }
